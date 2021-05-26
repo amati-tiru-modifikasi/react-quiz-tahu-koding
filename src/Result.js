@@ -1,9 +1,15 @@
 import React from 'react'
+import {  withRouter } from 'react-router-dom';
 
-export default function Result() {
+
+const Result = ({location}) => {
+
     return (
         <div>
-            Ini result jawaban
+            {JSON.stringify(location.state.score)}
         </div>
     )
 }
+
+// source: https://stackoverflow.com/a/56849895
+export default withRouter(Result);

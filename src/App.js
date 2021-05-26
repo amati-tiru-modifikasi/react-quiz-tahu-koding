@@ -4,6 +4,7 @@ import './App.css';
 import { Card, CardHeader, CardBody, Button, Container, Row, Col } from 'reactstrap';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 
+// Komponen
 import Result from './Result';
 
 // fake data
@@ -122,7 +123,15 @@ const App = () => {
             <Col><Button outline color="info" onClick={() => prevQuestion()} disabled={currentIndex === 0 ? true :false}>Sebelumnya</Button></Col>
             <Col>
               {quiz.length - 1 === currentIndex ? (
-                <Link className="btn btn-success" to="/result">Finish</Link>
+                // source: https://stackoverflow.com/a/56987453
+                <Link className="btn btn-success" 
+                  to={{
+                    pathname: "/result",
+                    state: {
+                      quiz,
+                      score
+                    }
+                  }}>Finish</Link>
               ): (
                 <Button outline color="primary" onClick={() => nextQuestion()}>Selanjutnya</Button>
               )}

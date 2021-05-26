@@ -23,7 +23,7 @@ const App = () => {
 
   // pilihan
   const selectOption = (indexSelected, indexOptionSelected) => {
-    setQuiz(quiz.map((item,index) => index === indexSelected ? {...item, selected: true, options: options.map((item,index) => index === indexOptionSelected ? {...item, selected: true} : item),} : item))
+    setQuiz(quiz.map((item,index) => index === indexSelected ? {...item, selected: true, options: options.map((item,index) => index === indexOptionSelected ? {...item, selected: true} : {...item, selected:false}),} : item))
   }
 
   return (

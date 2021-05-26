@@ -25,7 +25,7 @@ const App = () => {
       <Container fluid={true}>
         <h2 className="text-center mb-3 mt-3">Quiz Screen</h2>
         <Card>
-          <CardBody style={{ display: 'flex' }}>
+          <CardBody style={{ display: 'flex', padding: 10, flexWrap:'wrap' }}>
             {quiz.map( (item, index) => (
               <div 
                 className="border border-primary"
@@ -36,6 +36,7 @@ const App = () => {
                   height: 40,
                   width: 40,
                   marginRight: 5,
+                  marginBottom: 5,
                   borderRadius: 4,
                   cursor: 'pointer',
                   backgroundColor: index === currentIndex ? "greenyellow" : "transparent"

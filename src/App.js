@@ -37,7 +37,8 @@ const App = () => {
                   width: 40,
                   marginRight: 5,
                   borderRadius: 4,
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  backgroundColor: index === currentIndex ? "greenyellow" : "transparent"
                 }}
                 onClick={() => setCurrentIndex(index)}
               >{index + 1}</div>

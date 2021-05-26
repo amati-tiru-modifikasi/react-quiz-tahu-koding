@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTimer } from 'react-timer-hook';
 import './App.css';
 import { Card, CardHeader, CardBody, Button, Container, Row, Col } from 'reactstrap';
 
@@ -10,6 +11,15 @@ const App = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [quiz, setQuiz] = useState(quizData);
   const {id, question, options} = quiz[currentIndex];
+  
+  // Timer
+  const time = new Date();
+  time.setSeconds(time.getSeconds() + 500);
+
+  const { seconds, minutes, hours } = useTimer({
+    expiryTimestamp: time,
+    onExpire: () => alert('waktu habis')
+  })
 
   const nextQuestion = () => {
     if(quiz.length - 1 === currentIndex) return;
@@ -29,7 +39,7 @@ const App = () => {
   return (
     <div className="App">
       <Container fluid={true}>
-        <h2 className="text-center mb-3 mt-3">Quiz Screen</h2>
+        <h2 className="text-center mb-3 mt-3">Quiz Screen - Timer: {hours}:{minutes}:{seconds}</h2>
         <Card>
           <CardBody style={{ display: 'flex', padding: 10, flexWrap:'wrap' }}>
             {quiz.map( (item, index) => (

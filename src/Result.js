@@ -1,12 +1,16 @@
-import React from 'react'
-import {  withRouter } from 'react-router-dom';
-
+import React, { useEffect } from 'react'
+import {  withRouter, useHistory } from 'react-router-dom';
 
 const Result = ({location}) => {
+    const history = useHistory();
+
+    useEffect(() => {
+        if(!location.state) history.push('/')
+    },[])
 
     return (
         <div>
-            {JSON.stringify(location.state.score)}
+            {JSON.stringify(location.state)}
         </div>
     )
 }

@@ -10,6 +10,10 @@ const App = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [quiz, setQuiz] = useState(quizData);
+  const [score, setScore] = useState({
+    benar:0,
+    salah:0
+  })
   const {id, question, options} = quiz[currentIndex];
   
   // Timer
@@ -31,6 +35,18 @@ const App = () => {
     setCurrentIndex(currentIndex - 1);
   }
 
+  // Pengecekan score
+  const checkScore = () => {
+    const soalTerjawab = quiz.filter((item) => item.selected); // hitung yang terpilih saja
+    const jawabanBenar = soalTerjawab.filter((item) => item.options.find(option => option.correct && option.selected === option.correct)) // kita hitung array pilihan yang benar
+    
+    // simpan nilai data
+    setScore({
+      benar: jawabanBenar.length,
+      salah: quiz.length - jawabanBenar.length
+    })
+  }
+
   // pilihan
   const selectOption = (indexSelected, indexOptionSelected) => {
     setQuiz(quiz.map((item,index) => index === indexSelected ? {...item, selected: true, options: options.map((item,index) => index === indexOptionSelected ? {...item, selected: true} : {...item, selected:false}),} : item))
@@ -39,7 +55,7 @@ const App = () => {
   return (
     <div className="App">
       <Container fluid={true}>
-        <h2 className="text-center mb-3 mt-3">Quiz Screen - Timer: {hours}:{minutes}:{seconds}</h2>
+        <h2 className="text-center mb-3 mt-3">Quiz Screen - Score: {score.benar} - {score.salah} -  Timer: {hours}:{minutes}:{seconds}</h2>
         <Card>
           <CardBody style={{ display: 'flex', padding: 10, flexWrap:'wrap' }}>
             {quiz.map( (item, index) => (

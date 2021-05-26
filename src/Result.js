@@ -12,7 +12,7 @@ const Result = ({location}) => {
 
     return !location.state ? false : (
         <div className="mt-3">
-            <h1 className="text-center mb-3">Hasil Kuesioner</h1>
+            <h1 className="text-center mb-3">Hasil Kuesioner - Score {location.state.score.benar - location.state.score.salah}</h1>
             {location.state.quiz.map((item,index) => (
                 <Card  className="mb-3" key={index}>
                     <CardHeader>
@@ -37,7 +37,22 @@ const Result = ({location}) => {
                     ))}
                     </CardBody>
                     <CardFooter>
-                        Benar salah
+                        {item.options.find(
+                            (option) => option.correct && option.selected === option.correct
+                        ) ? (
+                            <div className="text-success">
+                                Jawaban Anda: {item.options.find(item => item.correct).title}
+                            </div>
+                        ) : 
+                            <>
+                            <div className="text-danger">
+                                Jawaban Anda: {item.options.find(item => item.selected)?.title ?? "Kamu Gak Jawab"}
+                            </div>
+                            <div className="text-success">
+                                Jawaban Benar: {item.options.find((item) => item.correct).title}
+                            </div>
+                            </>
+                        }
                     </CardFooter>
                 </Card>
             ))}

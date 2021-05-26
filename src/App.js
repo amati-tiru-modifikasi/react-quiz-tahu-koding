@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 import './App.css';
 import { Card, CardHeader, CardBody, Button, Container, Row, Col } from 'reactstrap';
+import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
+
+import Result from './Result';
 
 // fake data
 import { quiz as quizData } from './data/kuis'
@@ -58,6 +61,7 @@ const App = () => {
   }
 
   return (
+    <Router>
     <div className="App">
       <Container fluid={true}>
         <h2 className="text-center mb-3 mt-3">Quiz Screen - Score: {score.benar} - {score.salah} -  Timer: {hours}:{minutes}:{seconds}</h2>
@@ -116,11 +120,25 @@ const App = () => {
         }}>
           <Row>
             <Col><Button outline color="info" onClick={() => prevQuestion()} disabled={currentIndex === 0 ? true :false}>Sebelumnya</Button></Col>
-            <Col><Button outline color="primary" onClick={() => nextQuestion()} disabled={quiz.length - 1 === currentIndex ? true: false}>Selanjutnya</Button></Col>
+            <Col>
+              {quiz.length - 1 === currentIndex ? (
+                <Link className="btn btn-success" to="/result">Finish</Link>
+              ): (
+                <Button outline color="primary" onClick={() => nextQuestion()}>Selanjutnya</Button>
+              )}
+            </Col>
           </Row>
         </div>
       </Container>
+
+      <Switch>
+        <Route path="/result">
+          <Result />
+        </Route>
+      </Switch>
+
     </div>
+    </Router>
   );
 }
 

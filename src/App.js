@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './App.css';
 import { Card, CardHeader, CardBody, Button, Container, Row, Col } from 'reactstrap';
 
@@ -6,20 +7,33 @@ import { quiz } from './data/kuis'
 
 const App = () => {
 
-  const {id, question, options} = quiz[0];
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const {id, question, options} = quiz[currentIndex];
+
+  const nextQuestion = () => {
+    if(quiz.length - 1 === currentIndex) return;
+    setCurrentIndex(currentIndex + 1);
+  }
+
+  const prevQuestion = () => {
+    if(currentIndex === 0) return;
+    setCurrentIndex(currentIndex - 1);
+  }
 
   return (
     <div className="App">
       <Container fluid={true}>
         <h2 className="text-center mb-3 mt-3">Quiz Screen</h2>
         <Card>
-          <CardHeader>{question}</CardHeader>
+          <CardHeader>{currentIndex + 1}. {question}</CardHeader>
           <CardBody>
             {options.map(item => (
               <div style={{
                 display: 'flex',
                 justifyItems: 'center'
-              }}><div style={{
+              }}
+              key={item.id}
+              ><div style={{
                   height: 20,
                   width: 20,
                   borderRadius: 100,
@@ -35,8 +49,8 @@ const App = () => {
           justifyItems: "space-between"
         }}>
           <Row>
-            <Col><Button outline color="info" >Sebelumnya</Button></Col>
-            <Col><Button outline color="primary" >Selanjutnya</Button></Col>
+            <Col><Button outline color="info" onClick={() => prevQuestion()} disabled={currentIndex === 0 ? true :false}>Sebelumnya</Button></Col>
+            <Col><Button outline color="primary" onClick={() => nextQuestion()} disabled={quiz.length - 1 === currentIndex ? true: false}>Selanjutnya</Button></Col>
           </Row>
         </div>
       </Container>

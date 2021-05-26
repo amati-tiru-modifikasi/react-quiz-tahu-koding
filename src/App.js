@@ -3,11 +3,12 @@ import './App.css';
 import { Card, CardHeader, CardBody, Button, Container, Row, Col } from 'reactstrap';
 
 // fake data
-import { quiz } from './data/kuis'
+import { quiz as quizData } from './data/kuis'
 
 const App = () => {
 
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [quiz, setQuiz] = useState(quizData);
   const {id, question, options} = quiz[currentIndex];
 
   const nextQuestion = () => {
@@ -18,6 +19,11 @@ const App = () => {
   const prevQuestion = () => {
     if(currentIndex === 0) return;
     setCurrentIndex(currentIndex - 1);
+  }
+
+  // pilihan
+  const selectOption = (indexSelected) => {
+    setQuiz(quiz.map((item,index) => index === indexSelected ? {...item, selected: true } : item))
   }
 
   return (
@@ -39,31 +45,37 @@ const App = () => {
                   marginBottom: 5,
                   borderRadius: 4,
                   cursor: 'pointer',
-                  backgroundColor: index === currentIndex ? "greenyellow" : "transparent"
+                  backgroundColor: index === currentIndex ? item?.selected ? "blueviolet":"greenyellow" : "transparent"
                 }}
+                key={index}
                 onClick={() => setCurrentIndex(index)}
-              >{index + 1}</div>
+              >{index + 1}
+              {/* { console.log(item?.selected ? "yes":"no")} */}
+              </div>
             ))}
 
           </CardBody>
         </Card>
         <Card>
-          <CardHeader>{currentIndex + 1}. {question}</CardHeader>
+          <CardHeader style={{ fontSize: 20 }}>{currentIndex + 1}. {question}</CardHeader>
           <CardBody>
-            {options.map(item => (
+            {options.map((item,index) => (
               <div style={{
                 display: 'flex',
                 justifyItems: 'center'
               }}
-              key={item.id}
+              key={index}
               ><div style={{
                   height: 20,
                   width: 20,
                   borderRadius: 100,
                   backgroundColor: "grey",
                   cursor: "pointer",
-                  marginRight: 5
-              }}/>{item.title}</div>
+                  marginRight: 5,
+                  fontSize: 18
+              }}
+              onClick={() => selectOption(currentIndex)}
+              />{item.title}</div>
             ))}
           </CardBody>
         </Card>

@@ -8,6 +8,7 @@ const Result = ({location}) => {
 
     useEffect(() => {
         if(!location.state) history.push('/')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return !location.state ? false : (

@@ -18,7 +18,7 @@ const App = () => {
     benar:0,
     salah:0
   })
-  const {id, question, options} = quiz[currentIndex];
+  const {question, options} = quiz[currentIndex];
   
   // Timer
   const time = new Date();
@@ -54,6 +54,7 @@ const App = () => {
   // State ke variabel score
   useEffect(() => {
     checkScore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quiz])
 
   // pilihan

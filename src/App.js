@@ -22,8 +22,8 @@ const App = () => {
   }
 
   // pilihan
-  const selectOption = (indexSelected) => {
-    setQuiz(quiz.map((item,index) => index === indexSelected ? {...item, selected: true } : item))
+  const selectOption = (indexSelected, indexOptionSelected) => {
+    setQuiz(quiz.map((item,index) => index === indexSelected ? {...item, selected: true, options: options.map((item,index) => index === indexOptionSelected ? {...item, selected: true} : item),} : item))
   }
 
   return (
@@ -69,12 +69,12 @@ const App = () => {
                   height: 20,
                   width: 20,
                   borderRadius: 100,
-                  backgroundColor: "grey",
+                  backgroundColor: item?.selected ? "greenyellow" : "grey",
                   cursor: "pointer",
                   marginRight: 5,
                   fontSize: 18
               }}
-              onClick={() => selectOption(currentIndex)}
+              onClick={() => selectOption(currentIndex, index)}
               />{item.title}</div>
             ))}
           </CardBody>

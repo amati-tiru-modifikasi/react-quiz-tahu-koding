@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 import './App.css';
 import { Card, CardHeader, CardBody, Button, Container, Row, Col } from 'reactstrap';
@@ -46,6 +46,11 @@ const App = () => {
       salah: quiz.length - jawabanBenar.length
     })
   }
+
+  // State ke variabel score
+  useEffect(() => {
+    checkScore();
+  }, [quiz])
 
   // pilihan
   const selectOption = (indexSelected, indexOptionSelected) => {
